@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const handlebars = require('express-handlebars')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -16,6 +17,7 @@ module.exports = (app) => {
 
       // This set up which is the parser for the request's data.
     app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
 
 
         // Session is storage for cookies, which will be de/encrypted with that 'secret' key.
@@ -27,6 +29,7 @@ module.exports = (app) => {
         // For user validation we will use passport module.
     app.use(passport.initialize())
     app.use(passport.session())
+    app.use(cors())
 
     app.use((req, res, next) => {
         if (req.user) {

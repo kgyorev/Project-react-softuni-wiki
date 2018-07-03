@@ -14,8 +14,6 @@ module.exports = {
             let errorMsg = '';
             if (user) {
                 errorMsg = 'User with the same username exists!';
-            } else if (registerArgs.password !== registerArgs.repeatedPassword) {
-                errorMsg = 'Passwords do not match!'
             }
 
             if (errorMsg) {
