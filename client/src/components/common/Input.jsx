@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 
 export default class Input extends Component {
     render() {
-        const { name, type = 'text', value, onChange, label } = this.props;
+        const { name,classNameInput, type = 'text', value, onChange, label } = this.props;
         return (
             <div>
-                <label htmlFor="new-email">{label}</label>
+                <label htmlFor={name}>{label}</label>
                 <input
+                    className={classNameInput}
                     onChange={onChange}
                     name={name}
                     id={name}

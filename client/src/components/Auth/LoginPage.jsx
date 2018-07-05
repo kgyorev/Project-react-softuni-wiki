@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Input from '../common/Input';
-import { login } from '../../api/remote';
-import { withRouter } from 'react-router-dom';
+import {login} from '../../api/remote';
+import {withRouter} from 'react-router-dom';
 
 class LoginPage extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class LoginPage extends Component {
     }
 
     onChangeHandler(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     async onSubmitHandler(e) {
@@ -28,30 +28,47 @@ class LoginPage extends Component {
             return;
         }
         localStorage.setItem('authToken', res.token);
-        this.props.history.push('/');      
+        localStorage.setItem('user', res.user);
+        this.props.history.push('/');
     }
+
+// <section>
+// <h2>Login</h2>
+// <div class="spacer">
+// <form method="post" action="/user/login">
+// <label>Email:</label>
+// <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email">
+// <label>Password:</label>
+// <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+// <input type="submit" value="Login">
+// </form>
+// </div>
+// </section>
+
 
     render() {
         return (
-            <div className="container">
-                <h1>Login</h1>
+            <section>
+                <h2>Login</h2>
                 <form onSubmit={this.onSubmitHandler}>
                     <Input
                         name="email"
+                        classNameInput="form-control"
                         value={this.state.email}
                         onChange={this.onChangeHandler}
                         label="E-mail"
                     />
                     <Input
                         name="password"
+                        classNameInput="form-control"
                         type="password"
                         value={this.state.password}
                         onChange={this.onChangeHandler}
                         label="Password"
                     />
-                    <input type="submit" className="btn btn-primary" value="Login" />
+                    <input type="submit" value="Login"/>
                 </form>
-            </div>
+            </section>
         );
     }
 }

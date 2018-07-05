@@ -1,5 +1,6 @@
 const User = require('mongoose').model('User');
 const Role = require('mongoose').model('Role');
+const jwt = require('jsonwebtoken');
 const encryption = require('./../utilities/encryption');
 
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
         res.render('user/register');
     },
 
-    registerPost:(req, res) => {
+    registerPost: (req, res) => {
         let registerArgs = req.body;
 
         User.findOne({email: registerArgs.email}).then(user => {
@@ -38,7 +39,7 @@ module.exports = {
                     User.create(userObject).then(user => {
                         role.users.push(user);
                         role.save(err => {
-                            if(err) {
+                            if (err) {
                                 registerArgs.error = err.message;
                                 res.render('user/register', registerArgs);
                             }
@@ -67,7 +68,7 @@ module.exports = {
     loginPost: (req, res) => {
         let loginArgs = req.body;
         User.findOne({email: loginArgs.email}).then(user => {
-            if (!user ||!user.authenticate(loginArgs.password)) {
+            if (!user || !user.authenticate(loginArgs.password)) {
                 let errorMsg = 'Either username or password is invalid!';
                 loginArgs.error = errorMsg;
                 res.render('user/login', loginArgs);
@@ -77,16 +78,34 @@ module.exports = {
             req.logIn(user, (err) => {
                 if (err) {
                     res.render('/user/login', {error: err.message});
-                    return;
+                    const error = new Error('Incorrect email or password')
+                    error.name = 'IncorrectCredentialsError'
+                    return done(error)
                 }
 
                 let returnUrl = '/';
-                if(req.session.returnUrl) {
+                if (req.session.returnUrl) {
                     returnUrl = req.session.returnUrl;
                     delete req.session.returnUrl;
                 }
+                const payload = {
+                    sub: user._id
+                }
 
-                res.redirect(returnUrl);
+                // create a token string
+                const token = jwt.sign(payload, 's0m3 r4nd0m str1ng')
+                // const data = {
+                //     email: user.email
+                // }
+
+                // return done(null, token, data)
+                return res.status(200).json({
+                    success: true,
+                    message: 'You have successfully logged in!',
+                    token: token,
+                    user: user.email
+                })
+                // res.redirect(returnUrl);
             })
         })
     },
@@ -96,3 +115,50 @@ module.exports = {
         res.redirect('/');
     }
 };
+
+
+// const jwt = require('jsonwebtoken')
+// const usersData = require('../data/users')
+// const PassportLocalStrategy = require('passport-local').Strategy
+//
+// module.exports = new PassportLocalStrategy({
+//     usernameField: 'email',
+//     passwordField: 'password',
+//     session: false,
+//     passReqToCallback: true
+// }, (req, email, password, done) => {
+//     const user = {
+//         email: email.trim(),
+//         password: password.trim()
+//     }
+//
+//     let savedUser = usersData.findByEmail(email)
+//
+//     if (!savedUser) {
+//         const error = new Error('Incorrect email or password')
+//         error.name = 'IncorrectCredentialsError'
+//
+//         return done(error)
+//     }
+//
+//     const isMatch = savedUser.password === user.password
+//
+//     if (!isMatch) {
+//         const error = new Error('Incorrect email or password')
+//         error.name = 'IncorrectCredentialsError'
+//
+//         return done(error)
+//     }
+//
+//     const payload = {
+//         sub: savedUser.id
+//     }
+//
+//     // create a token string
+//     const token = jwt.sign(payload, 's0m3 r4nd0m str1ng')
+//     const data = {
+//         name: savedUser.name
+//     }
+//
+//     return done(null, token, data)
+// })

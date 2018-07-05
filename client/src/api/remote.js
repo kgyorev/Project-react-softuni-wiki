@@ -15,7 +15,7 @@ async function register(email, password) {
 }
 
 async function login(email, password) {
-    const res = await fetch(host + 'auth/login', {
+    const res = await fetch(host + 'user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
