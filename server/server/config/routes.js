@@ -1,5 +1,6 @@
 const controllers = require('../controllers')
 const auth = require('./auth')
+const authCheck = require('../middleware/auth-check');
 
 module.exports = (app) => {
     app.get('/', controllers.home.index)
@@ -13,12 +14,12 @@ module.exports = (app) => {
 
 
     app.get('/article/create', controllers.article.createGet);
-    app.post('/article/create', controllers.article.createPost);
+    app.post('/article/create', authCheck, controllers.article.createPost);
 
     app.get('/article/details/:id', controllers.article.details);
 
     app.get('/article/edit/:id', controllers.article.editGet);
-    app.post('/article/edit/:id', controllers.article.editPost);
+    app.post('/article/edit/:id',authCheck, controllers.article.editPost);
 
 
     app.get('/article/lock/:id', controllers.article.lockGet);

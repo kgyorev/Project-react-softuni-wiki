@@ -25,7 +25,14 @@ module.exports = {
                     }
                     lastEdit=article.lastEdit
                 }
-                res.render('home/index', {articles: articles, edit:lastEdit,article:article, displayContent: displayContent});
+                return res.status(200).json({
+                    success: true,
+                    articles: articles,
+                    edit:lastEdit,
+                    article:article,
+                    displayContent: displayContent
+                })
+               // res.render('home/index', {articles: articles, edit:lastEdit,article:article, displayContent: displayContent});
             });
 
             // res.render('home/index');

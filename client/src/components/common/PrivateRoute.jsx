@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 export default class PrivateRoute extends Component {
     render() {
         if (localStorage.getItem('authToken') === null) {
-            return <Redirect to="/login" />;
+            return <Redirect to="/user/login" />;
         };
 
         return (

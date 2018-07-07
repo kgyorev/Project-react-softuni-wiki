@@ -1,5 +1,6 @@
 const Article = require('mongoose').model('Article');
 const Edit = require('mongoose').model('Edit');
+const authCheck = require('../middleware/auth-check');
 
 module.exports = {
     createGet: (req, res) => {
@@ -15,14 +16,14 @@ module.exports = {
     },
 
     createPost: (req, res) => {
-        if (!req.isAuthenticated()) {
-            let returnUrl = '/article/create';
-            req.session.returnUrl = returnUrl;
-
-            res.redirect('/user/login');
-            return;
-        }
-
+        // if (!req.isAuthenticated()) {
+        //     let returnUrl = '/article/create';
+        //     req.session.returnUrl = returnUrl;
+        //
+        //     res.redirect('/user/login');
+        //     return;
+        // }
+        // authCheck(req,res,next);
         let articleArgs = req.body;
 
         let errorMsg = '';
@@ -64,15 +65,25 @@ module.exports = {
 
         Article.findById(id).populate('lastEdit').then(article => {
             if (!req.user) {
-                res.render('article/details', {article: article, isUserAuthorized: false});
-                return;
+              //  res.render('article/details', {article: article, isUserAuthorized: false});
+                return res.status(200).json({
+                    success: true,
+                    article: article,
+                    isUserAuthorized: false
+                })
             }
 
             req.user.isInRole('Admin').then(isAdmin => {
                 // let isUserAuthorized = isAdmin || req.user.isAuthor(article);
                 let isUserAuthorized = isAdmin || req.user;
 
-                res.render('article/details', {article: article, isUserAuthorized: isUserAuthorized});
+               // res.render('article/details', {article: article, isUserAuthorized: isUserAuthorized});
+                return res.status(200).json({
+                    success: true,
+                    article: article,
+                    isUserAuthorized: isUserAuthorized
+                })
+
             });
         });
     },
@@ -105,13 +116,13 @@ module.exports = {
     editPost: (req, res) => {
         let id = req.params.id;
 
-        if (!req.isAuthenticated()) {
-            let returnUrl = `/article/edit/${id}`;
-            req.session.returnUrl = returnUrl;
-
-            res.redirect('/user/login');
-            return;
-        }
+        // if (!req.isAuthenticated()) {
+        //     let returnUrl = `/article/edit/${id}`;
+        //     req.session.returnUrl = returnUrl;
+        //
+        //     res.redirect('/user/login');
+        //     return;
+        // }
 
         let articleArgs = req.body;
 

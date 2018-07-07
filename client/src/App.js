@@ -5,6 +5,11 @@ import './App.css';
 import RegisterPage from "./components/Auth/RegisterPage";
 import LoginPage from "./components/Auth/LoginPage";
 import Header from "./components/common/Header";
+import HomePage from "./components/HomePage/HomePage";
+import CreatePage from "./components/Create/CreatePage";
+import PrivateRoute from "./components/common/PrivateRoute";
+import DetailsPage from "./components/Details/DetailsPage";
+import EditPage from "./components/Edit/EditPage";
 
 class App extends Component {
     constructor(props) {
@@ -40,8 +45,12 @@ class App extends Component {
           <Header loggedIn={localStorage.getItem('authToken') != null} onLogout={this.onLogout} />
           <h1>Welcome to SoftUni Wiki!</h1>
           <Switch>
+              <Route exact path="/" component={HomePage} />
               <Route path="/user/register" component={RegisterPage} />
               <Route path="/user/login" component={LoginPage} />
+              <PrivateRoute path="/article/create" component={CreatePage} />
+              <PrivateRoute path="/article/edit/:id" component={EditPage} />
+              <Route loggedIn={localStorage.getItem('authToken') != null}  path="/article/details/:id" component={DetailsPage} />
           </Switch>
           <footer>
               SoftUni Wiki &copy; 2018

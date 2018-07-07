@@ -28,6 +28,29 @@ async function login(email, password) {
     return await res.json();
 }
 
+async function createArticle(article) {
+    const res = await fetch(host + 'article/create', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(article)
+    });
+    return await res.json();
+}
+async function editArticle(id,article) {
+    const res = await fetch(host + 'article/edit/'+ id, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(article)
+    });
+    return await res.json();
+}
+
 async function createHotel(hotel) {
     const res = await fetch(host + 'hotels/create', {
         method: 'POST',
@@ -40,13 +63,18 @@ async function createHotel(hotel) {
     return await res.json();
 }
 
+async function getHomePage() {
+    const res = await fetch(host);
+    return await res.json();
+}
+
 async function getPage(page) {
     const res = await fetch(host + 'hotels/all?page=' + page);
     return await res.json();
 }
 
 async function getDetails(id) {
-    const res = await fetch(host + 'hotels/details/' + id, {
+    const res = await fetch(host + 'article/details/' + id, {
         method: 'GET',
         headers: {
             'Authorization': 'bearer ' + localStorage.getItem('authToken'),            
@@ -90,4 +118,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login, createHotel, getPage, getDetails, postReview, getReviews, deleteHotel };
+export { register, login,createArticle,editArticle, createHotel, getPage, getHomePage,getDetails, postReview, getReviews, deleteHotel };
