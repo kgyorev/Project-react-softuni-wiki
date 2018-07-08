@@ -25,7 +25,7 @@ module.exports = (app) => {
     app.get('/article/lock/:id', controllers.article.lockGet);
     app.get('/article/unlock/:id', controllers.article.unLockGet);
 
-    app.get('/article/all', controllers.article.allGet);
+    app.get('/article/all',authCheck, controllers.article.allGet);
     app.get('/article/history/:id', controllers.article.history);
 
 

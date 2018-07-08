@@ -38,7 +38,6 @@ export default class DetailsPage extends Component {
 
         return (
             <div className="container">
-                <h1>Details Page</h1>
                 {main}
             </div>
         );

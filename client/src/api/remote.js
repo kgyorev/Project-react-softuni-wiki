@@ -68,6 +68,16 @@ async function getHomePage() {
     return await res.json();
 }
 
+async function getAllArticlePage() {
+    const res = await fetch(host+'article/all',{
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+            'Content-Type': 'application/json'
+        },
+    });
+    return await res.json();
+}
+
 async function getPage(page) {
     const res = await fetch(host + 'hotels/all?page=' + page);
     return await res.json();
@@ -118,4 +128,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login,createArticle,editArticle, createHotel, getPage, getHomePage,getDetails, postReview, getReviews, deleteHotel };
+export { register, login,createArticle,editArticle, createHotel, getPage, getHomePage,getAllArticlePage,getDetails, postReview, getReviews, deleteHotel };

@@ -10,6 +10,7 @@ import CreatePage from "./components/Create/CreatePage";
 import PrivateRoute from "./components/common/PrivateRoute";
 import DetailsPage from "./components/Details/DetailsPage";
 import EditPage from "./components/Edit/EditPage";
+import AllArticles from "./components/HomePage/AllArticles";
 
 class App extends Component {
     constructor(props) {
@@ -48,6 +49,7 @@ class App extends Component {
               <Route exact path="/" component={HomePage} />
               <Route path="/user/register" component={RegisterPage} />
               <Route path="/user/login" component={LoginPage} />
+              <PrivateRoute path="/article/all" component={AllArticles} />
               <PrivateRoute path="/article/create" component={CreatePage} />
               <PrivateRoute path="/article/edit/:id" component={EditPage} />
               <Route loggedIn={localStorage.getItem('authToken') != null}  path="/article/details/:id" component={DetailsPage} />

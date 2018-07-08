@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { getHomePage, deleteHotel } from '../../api/remote';
+import { getAllArticlePage} from '../../api/remote';
 import ArticlesList from './ArticlesList';
 import { Link } from 'react-router-dom';
 import LastArticle from "./LastArticle";
 
-export default class HomePage extends Component {
+export default class AllArticles extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             success: false,
             articles: [],
-            article:{},
-            displayContent: ''
         };
     }
 
@@ -28,7 +26,7 @@ export default class HomePage extends Component {
     }
 
     async getData() {
-        const data = await getHomePage();
+        const data = await getAllArticlePage();
         console.log(data)
         this.setState(data);
     }
@@ -38,8 +36,7 @@ export default class HomePage extends Component {
 
         return (
             <div>
-                <LastArticle article={this.state.article} displayContent ={this.state.displayContent} />
-                <ArticlesList articles={this.state.articles} title = 'Recently added articles' id = 'recent'/>
+                <ArticlesList articles={this.state.articles} title = 'All articles' className="spacer"/>
             </div>
         );
     }

@@ -228,7 +228,11 @@ module.exports = {
         Article.find({}, {}, {sort: {'title': 1}}, function (err, post) {
             console.log(post);
         }).then(articles => {
-            res.render('article/all-articles', {articles: articles});
+            // res.render('article/all-articles', {articles: articles});
+            return res.status(200).json({
+                success: true,
+                articles: articles
+            })
         });
     },
     history: (req, res) => {
