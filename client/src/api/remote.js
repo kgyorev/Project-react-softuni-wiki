@@ -1,4 +1,5 @@
-const host = 'http://localhost:1337/';
+//const host = 'http://localhost:1337/';
+const host = 'https://softuni-wiki-server.herokuapp.com:443/';
 
 async function register(email, password) {
     const res = await fetch(host + 'user/register', {
@@ -92,6 +93,15 @@ async function getDetails(id) {
     });
     return await res.json();
 }
+async function getAllArticleHistory(id) {
+    const res = await fetch(host + 'article/history/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
 
 async function postReview(hotelId, comment, rating) {
     const res = await fetch(host + `hotels/details/${hotelId}/reviews/create`, {
@@ -118,6 +128,26 @@ async function getReviews(hotelId) {
     return await res.json();
 }
 
+
+async function lockArticle(articleId) {
+    const res = await fetch(host + `article/lock/${articleId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
+async function unLockArticle(articleId) {
+    const res = await fetch(host + `article/unlock/${articleId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
+
 async function deleteHotel(hotelId) {
     const res = await fetch(host + `hotels/${hotelId}`, {
         method: 'DELETE',
@@ -128,4 +158,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login,createArticle,editArticle, createHotel, getPage, getHomePage,getAllArticlePage,getDetails, postReview, getReviews, deleteHotel };
+export { register, login,createArticle,editArticle, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };

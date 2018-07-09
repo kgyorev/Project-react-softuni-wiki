@@ -3,7 +3,9 @@ const express = require('express');
 const handlebars = require('express-handlebars')
 
 const env = process.env.NODE_ENV || 'development'
+console.log(env);
 const settings = require('./server/config/settings')[env]
+
 
 
 
@@ -17,5 +19,5 @@ require('./server/config/routes')(app)
 require('./server/config/passport')()
 
 
-app.listen(1337)
+app.listen(settings.port)
 

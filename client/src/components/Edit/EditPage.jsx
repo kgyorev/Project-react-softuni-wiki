@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Input from '../common/Input';
-import { editArticle } from '../../api/remote';
-import { getDetails } from '../../api/remote';
+import {editArticle, getDetails,lockArticle,unLockArticle } from '../../api/remote';
 import { withRouter } from 'react-router-dom';
 import TextArea from "../common/TextArea";
+import ArticleLock from "./ArticleLock";
 
 class EditPage extends Component {
     constructor(props) {
@@ -13,6 +13,7 @@ class EditPage extends Component {
             title: '',
             content: '',
             id:'',
+            lock:false,
             error: false,
             submitting: false
         };
@@ -31,6 +32,20 @@ class EditPage extends Component {
         this.setState({title:data.article.title,content:data.article.lastEdit.content,id:data.article._id});
     }
 
+    async lockArticle(id) {
+        try {
+            const res = await lockArticle(id);
+        } catch (e) {}
+        this.setState({lock:true});
+        // this.getData();
+    }
+    async unLockArticle(id) {
+        try {
+            const res = await unLockArticle(id);
+        } catch (e) {}
+        this.setState({lock:false});
+        // this.getData();
+    }
 
     onChangeHandler(e) {
         this.setState({ [e.target.name]: e.target.value });
@@ -63,7 +78,7 @@ class EditPage extends Component {
             this.setState({ error: res, submitting: false });
             return;
         }
-        this.setState({ submitting: false });        
+        this.setState({ submitting: false });
         this.props.history.push('/article/details/'+this.state.id);
     }
 
@@ -82,8 +97,14 @@ class EditPage extends Component {
 
         return (
             <section>
-                <h2>Edit article</h2>
                 {errors}
+                <h2>Edit article
+                    <ArticleLock
+                        lockStatus={this.state.lock}
+                        lock={() => this.lockArticle(this.state.id)}
+                        unLock={() => this.unLockArticle(this.state.id)}
+                    />
+                </h2>
                 <form onSubmit={this.onSubmitHandler}>
                     <Input
                         name="title"

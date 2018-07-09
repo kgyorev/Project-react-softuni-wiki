@@ -249,7 +249,12 @@ module.exports = {
         Article.findById(id).then(article => {
             let editLs = article.editLs
             Edit.find({'_id': {$in: editLs}}).populate('author').then(editHistory => {
-                    res.render('article/history', {article: article, editLs: editHistory})
+                return res.status(200).json({
+                    success: true,
+                    editLs:editHistory,
+                    article: article
+                })
+                 //   res.render('article/history', {article: article, editLs: editHistory})
                 }
             )
         })

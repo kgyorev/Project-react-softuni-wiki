@@ -22,11 +22,11 @@ module.exports = (app) => {
     app.post('/article/edit/:id',authCheck, controllers.article.editPost);
 
 
-    app.get('/article/lock/:id', controllers.article.lockGet);
-    app.get('/article/unlock/:id', controllers.article.unLockGet);
+    app.get('/article/lock/:id',authCheck, controllers.article.lockGet);
+    app.get('/article/unlock/:id',authCheck, controllers.article.unLockGet);
 
     app.get('/article/all',authCheck, controllers.article.allGet);
-    app.get('/article/history/:id', controllers.article.history);
+    app.get('/article/history/:id',authCheck, controllers.article.history);
 
 
     app.all('*', (req, res) => {
