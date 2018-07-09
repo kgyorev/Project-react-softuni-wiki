@@ -114,11 +114,12 @@ class EditPage extends Component {
                     />
                     <TextArea
                         name="content"
+                        lockStatus={this.state.lock}
                         value={this.state.content}
                         onChange={this.onChangeHandler}
                         label="Content"
                     />
-                    <input type="submit" value="Submit" disabled={this.state.submitting}/>
+                    {!this.state.lock&&<input type="submit" value="Submit" disabled={this.state.submitting}/>}
                 </form>
             </section>
         );
