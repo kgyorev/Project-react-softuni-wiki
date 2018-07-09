@@ -29,7 +29,7 @@ class EditPage extends Component {
     async getData() {
         const data = await getDetails(this.props.match.params.id);
         console.log(data)
-        this.setState({title:data.article.title,content:data.article.lastEdit.content,id:data.article._id});
+        this.setState({title:data.article.title,content:data.article.lastEdit.content,id:data.article._id,lock:data.article.lockedStatus});
     }
 
     async lockArticle(id) {

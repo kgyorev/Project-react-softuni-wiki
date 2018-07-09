@@ -1,5 +1,5 @@
-//const host = 'http://localhost:1337/';
-const host = 'https://softuni-wiki-server.herokuapp.com:443/';
+const host = 'http://localhost:1337/';
+//const host = 'https://softuni-wiki-server.herokuapp.com:443/';
 
 async function register(email, password) {
     const res = await fetch(host + 'user/register', {
