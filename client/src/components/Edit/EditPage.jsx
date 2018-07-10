@@ -94,16 +94,16 @@ class EditPage extends Component {
                 </div>
             );
         }
-
+       let isUserAuthorized= localStorage.getItem('isUserAuthorized');
         return (
             <section>
                 {errors}
                 <h2>Edit article
-                    <ArticleLock
+                    {isUserAuthorized==='true'&&<ArticleLock
                         lockStatus={this.state.lock}
                         lock={() => this.lockArticle(this.state.id)}
                         unLock={() => this.unLockArticle(this.state.id)}
-                    />
+                    />}
                 </h2>
                 <form onSubmit={this.onSubmitHandler}>
                     <Input

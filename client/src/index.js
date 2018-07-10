@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
+import {AuthProvider} from "./util/AuthContext";
 
 
 
 ReactDOM.render((
+    <AuthProvider>
     <Router>
         <App />
-    </Router>), document.getElementById('root'));
+    </Router>
+    </AuthProvider>
+        ), document.getElementById('root'));
 registerServiceWorker();

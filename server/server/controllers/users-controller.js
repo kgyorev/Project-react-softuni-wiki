@@ -99,12 +99,17 @@ module.exports = {
                 // }
 
                 // return done(null, token, data)
-                return res.status(200).json({
-                    success: true,
-                    message: 'You have successfully logged in!',
-                    token: token,
-                    user: user.email
-                })
+                req.user.isInRole('Admin').then(isAdmin => {
+                    // let isUserAuthorized = isAdmin || req.user.isAuthor(article);
+                    return res.status(200).json({
+                        success: true,
+                        message: 'You have successfully logged in!',
+                        token: token,
+                        isUserAuthorized: isAdmin,
+                        user: user.email
+                    })
+                });
+
                 // res.redirect(returnUrl);
             })
         })

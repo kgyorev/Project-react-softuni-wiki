@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import {Link, Route, Switch, withRouter} from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import RegisterPage from "./components/Auth/RegisterPage";
@@ -35,12 +35,12 @@ class App extends Component {
               <nav>
                   <a href="/">Main Page</a>
                   <a href="article.html">Latest Article</a>
-                  <a href="/article/all">All Articles</a>
+                  <Link to={'/article/all'}>All Articles</Link>
                   <form>
                       <input type="text"/>
                       <input type="submit" value="Search"/>
                   </form>
-                  <a href="/article/create">Create New Article</a>
+                  <Link to={'/article/create'}>Create New Article</Link>
               </nav>
           </aside>
           <div id="container">

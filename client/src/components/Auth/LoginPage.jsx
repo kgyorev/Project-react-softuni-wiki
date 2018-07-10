@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Input from '../common/Input';
 import {login} from '../../api/remote';
 import {withRouter} from 'react-router-dom';
+import {AuthConsumer} from "../../util/AuthContext";
 
 class LoginPage extends Component {
     constructor(props) {
@@ -28,7 +29,9 @@ class LoginPage extends Component {
             return;
         }
         localStorage.setItem('authToken', res.token);
+        console.log(res)
         localStorage.setItem('user', res.user);
+        localStorage.setItem('isUserAuthorized', res.isUserAuthorized);
         this.props.history.push('/');
     }
 
@@ -48,27 +51,35 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <section>
-                <h2>Login</h2>
-                <form onSubmit={this.onSubmitHandler}>
-                    <Input
-                        name="email"
-                        classNameInput="form-control"
-                        value={this.state.email}
-                        onChange={this.onChangeHandler}
-                        label="E-mail"
-                    />
-                    <Input
-                        name="password"
-                        classNameInput="form-control"
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onChangeHandler}
-                        label="Password"
-                    />
-                    <input type="submit" value="Login"/>
-                </form>
-            </section>
+            <AuthConsumer>
+                {({isAuth, login, logout}) => (
+                    <section>
+                        <h2>Login</h2>
+                        <form onSubmit={e => {
+                            login(this.state.email, this.state.password, e)
+                            this.props.history.push('/');
+                        }}>
+                            <Input
+                                name="email"
+                                classNameInput="form-control"
+                                value={this.state.email}
+                                onChange={this.onChangeHandler}
+                                label="E-mail"
+                            />
+                            <Input
+                                name="password"
+                                classNameInput="form-control"
+                                type="password"
+                                value={this.state.password}
+                                onChange={this.onChangeHandler}
+                                label="Password"
+                            />
+                            <input type="submit" value="Login"/>
+                        </form>
+                    </section>
+                )
+                }
+            </AuthConsumer>
         );
     }
 }
