@@ -51,7 +51,16 @@ async function editArticle(id,article) {
     });
     return await res.json();
 }
-
+async function getUserDetails() {
+    const res = await fetch(host + 'user/details', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+            'Content-Type': 'application/json'
+        }
+    });
+    return await res.json();
+}
 async function createHotel(hotel) {
     const res = await fetch(host + 'hotels/create', {
         method: 'POST',
@@ -158,4 +167,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login,createArticle,editArticle, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };
+export { register, login,getUserDetails,createArticle,editArticle, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };

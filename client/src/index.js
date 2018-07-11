@@ -9,10 +9,10 @@ import {AuthProvider} from "./util/AuthContext";
 
 
 ReactDOM.render((
-    <AuthProvider>
+
     <Router>
         <App />
     </Router>
-    </AuthProvider>
+
         ), document.getElementById('root'));
 registerServiceWorker();

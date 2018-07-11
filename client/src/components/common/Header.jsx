@@ -6,11 +6,11 @@ class Header extends Component {
     render(){
         return(<header>
             <AuthConsumer>
-                {({isAuth, login, logout}) => (
+                {({isAuth,user, logoutAuth}) => (
                     <div>
-                        {isAuth && <span>Welcome({'aaa'})!</span>}
+                        {isAuth && <span>Welcome({user})!</span>}
                         {isAuth && <a href="javascript:void(0)" onClick={e => {
-                            logout(e);
+                            logoutAuth(e);
                             this.props.history.push('/')
                         }}> [Logout]</a>}
                         {!isAuth && <NavLink to="/user/login" activeClassName="active">Login</NavLink>}

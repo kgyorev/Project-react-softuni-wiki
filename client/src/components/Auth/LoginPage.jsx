@@ -10,7 +10,8 @@ class LoginPage extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            error:false
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -21,17 +22,18 @@ class LoginPage extends Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    async onSubmitHandler(e) {
+    async onSubmitHandler(e,loginAuth) {
         e.preventDefault();
         const res = await login(this.state.email, this.state.password);
         if (!res.success) {
-            this.setState({error: res});
+            this.setState({error: res.message});
             return;
         }
+        loginAuth(this.state.email,res.isAuth,res.isUserAuthorized);
         localStorage.setItem('authToken', res.token);
-        console.log(res)
-        localStorage.setItem('user', res.user);
-        localStorage.setItem('isUserAuthorized', res.isUserAuthorized);
+      //  console.log(res)
+      //  localStorage.setItem('user', res.user);
+       // localStorage.setItem('isUserAuthorized', res.isUserAuthorized);
         this.props.history.push('/');
     }
 
@@ -52,12 +54,12 @@ class LoginPage extends Component {
     render() {
         return (
             <AuthConsumer>
-                {({isAuth, login, logout}) => (
+                {({loginAuth, logoutAuth}) => (
                     <section>
+                        {this.state.error}
                         <h2>Login</h2>
                         <form onSubmit={e => {
-                            login(this.state.email, this.state.password, e)
-                            this.props.history.push('/');
+                            this.onSubmitHandler(e,loginAuth);
                         }}>
                             <Input
                                 name="email"

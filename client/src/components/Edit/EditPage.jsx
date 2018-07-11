@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Input from '../common/Input';
-import {editArticle, getDetails,lockArticle,unLockArticle } from '../../api/remote';
-import { withRouter } from 'react-router-dom';
+import {editArticle, getDetails, lockArticle, unLockArticle} from '../../api/remote';
+import {withRouter} from 'react-router-dom';
 import TextArea from "../common/TextArea";
 import ArticleLock from "./ArticleLock";
+import {AuthConsumer} from "../../util/AuthContext";
 
 class EditPage extends Component {
     constructor(props) {
@@ -12,8 +13,8 @@ class EditPage extends Component {
         this.state = {
             title: '',
             content: '',
-            id:'',
-            lock:false,
+            id: '',
+            lock: false,
             error: false,
             submitting: false
         };
@@ -29,26 +30,34 @@ class EditPage extends Component {
     async getData() {
         const data = await getDetails(this.props.match.params.id);
         console.log(data)
-        this.setState({title:data.article.title,content:data.article.lastEdit.content,id:data.article._id,lock:data.article.lockedStatus});
+        this.setState({
+            title: data.article.title,
+            content: data.article.lastEdit.content,
+            id: data.article._id,
+            lock: data.article.lockedStatus
+        });
     }
 
     async lockArticle(id) {
         try {
             const res = await lockArticle(id);
-        } catch (e) {}
-        this.setState({lock:true});
+        } catch (e) {
+        }
+        this.setState({lock: true});
         // this.getData();
     }
+
     async unLockArticle(id) {
         try {
             const res = await unLockArticle(id);
-        } catch (e) {}
-        this.setState({lock:false});
+        } catch (e) {
+        }
+        this.setState({lock: false});
         // this.getData();
     }
 
     onChangeHandler(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        this.setState({[e.target.name]: e.target.value});
     }
 
     async onSubmitHandler(e) {
@@ -58,28 +67,28 @@ class EditPage extends Component {
             title: this.state.title,
             content: this.state.content,
         };
-        const error = { message: '', errors: {}};
+        const error = {message: '', errors: {}};
         if (article.title.length < 1) {
             error.message = 'Check the form for errors';
-            error.errors.description = 'Invalid Title.';
+            error.errors.title = 'Invalid Title.';
         }
         if (article.content.length < 1) {
             error.message = 'Check the form for errors';
-            error.errors.description = 'Invalid Content.';
+            error.errors.content = 'Invalid Content.';
         }
         if (error.message) {
             this.setState({error, submitting: false});
             return;
         }
-        this.setState({ error: false });
-        const res = await editArticle(this.state.id,article);
+        this.setState({error: false});
+        const res = await editArticle(this.state.id, article);
 
         if (!res.success) {
-            this.setState({ error: res, submitting: false });
+            this.setState({error: res, submitting: false});
             return;
         }
-        this.setState({ submitting: false });
-        this.props.history.push('/article/details/'+this.state.id);
+        this.setState({submitting: false});
+        this.props.history.push('/article/details/' + this.state.id);
     }
 
     render() {
@@ -94,17 +103,19 @@ class EditPage extends Component {
                 </div>
             );
         }
-       let isUserAuthorized= localStorage.getItem('isUserAuthorized');
         return (
+            <AuthConsumer>
+                {({isAdmin}) => (
             <section>
                 {errors}
-                <h2>Edit article
-                    {isUserAuthorized==='true'&&<ArticleLock
-                        lockStatus={this.state.lock}
-                        lock={() => this.lockArticle(this.state.id)}
-                        unLock={() => this.unLockArticle(this.state.id)}
-                    />}
-                </h2>
+                        <h2>Edit article
+                            {isAdmin && <ArticleLock
+                                lockStatus={this.state.lock}
+                                lock={() => this.lockArticle(this.state.id)}
+                                unLock={() => this.unLockArticle(this.state.id)}
+                            />}
+                        </h2>
+
                 <form onSubmit={this.onSubmitHandler}>
                     <Input
                         name="title"
@@ -119,9 +130,12 @@ class EditPage extends Component {
                         onChange={this.onChangeHandler}
                         label="Content"
                     />
-                    {!this.state.lock&&<input type="submit" value="Submit" disabled={this.state.submitting}/>}
+                    {(!this.state.lock||isAdmin) && <input type="submit" value="Submit" disabled={this.state.submitting}/>}
                 </form>
             </section>
+                )
+                }
+            </AuthConsumer>
         );
     }
 }

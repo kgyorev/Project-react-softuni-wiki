@@ -1,42 +1,65 @@
 import React, {Component} from 'react';
-import {login} from "../api/remote";
+import {getUserDetails} from "../api/remote";
 
 const AuthContext = React.createContext();
 
 class AuthProvider extends React.Component {
-    state = { isAuth: false }
-    constructor() {
-        super()
-        this.login = this.login.bind(this)
-        this.logout = this.logout.bind(this)
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuth: false,
+            user:'',
+            isAdmin:false,
+            doRequest:true
+
+        };
+
+        this.loginAuth = this.loginAuth.bind(this);
+        this.logoutAuth = this.logoutAuth.bind(this)
+        this.getUserData = this.getUserData.bind(this)
     }
-    async login(email,password,e) {
-        // setting timeout to mimic an async login
-        console.log(password)
-        e.preventDefault();
-        const res = await login(email, password);
-        if (!res.success) {
-            this.setState({error: res});
-            return;
+    async loginAuth(user,isAuth,isAdmin) {
+        this.setState({
+            isAuth: isAuth,
+            user:user,
+            isAdmin:isAdmin
+          });
+    }
+    async getUserData(){
+        if(!localStorage.getItem('authToken')){
+            return
         }
-        localStorage.setItem('authToken', res.token);
-        // console.log(res)
-        // localStorage.setItem('user', res.user);
-        // localStorage.setItem('isUserAuthorized', res.isUserAuthorized);
-        this.setState({ isAuth: true });
+      const res = await getUserDetails();
+        this.setState({
+            isAuth: res.isAuth,
+            user:res.user,
+            isAdmin:res.isUserAuthorized
+        })
     }
-    logout(e) {
+
+    logoutAuth(e) {
         e.preventDefault()
         localStorage.clear();
-        this.setState({ isAuth: false })
+        this.setState({
+            isAuth: false,
+            user:'',
+            isAdmin:false
+        })
     }
     render() {
+        if(localStorage.getItem('authToken')&&this.state.user===''&&this.state.doRequest){
+            this.getUserData();
+            this.setState({doRequest:false})
+        }
         return (
             <AuthContext.Provider
                 value={{
                     isAuth: this.state.isAuth,
-                    login: this.login,
-                    logout: this.logout
+                    user: this.state.user,
+                    isAdmin: this.state.isAdmin,
+                    loginAuth: this.loginAuth,
+                    logoutAuth: this.logoutAuth
                 }}
             >
                 {this.props.children}
