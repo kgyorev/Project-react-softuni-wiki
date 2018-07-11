@@ -39,7 +39,7 @@ class AuthProvider extends React.Component {
     }
 
     logoutAuth(e) {
-        e.preventDefault()
+        e.preventDefault();
         localStorage.clear();
         this.setState({
             isAuth: false,
@@ -48,7 +48,7 @@ class AuthProvider extends React.Component {
         })
     }
     render() {
-        if(localStorage.getItem('authToken')&&this.state.user===''&&this.state.doRequest){
+        if(localStorage.getItem('authToken')&&!this.state.isAuth&&this.state.doRequest){
             this.getUserData();
             this.setState({doRequest:false})
         }

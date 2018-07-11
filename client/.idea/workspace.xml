@@ -95,8 +95,8 @@
       <file leaf-file-name="AuthContext.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/util/AuthContext.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="48" lean-forward="false" selection-start-line="59" selection-start-column="48" selection-end-line="59" selection-end-column="48" />
+            <state relative-caret-position="169">
+              <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -164,8 +164,8 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/api/remote.js" />
-        <option value="$PROJECT_DIR$/src/util/AuthContext.js" />
         <option value="$PROJECT_DIR$/src/components/Auth/LoginPage.jsx" />
+        <option value="$PROJECT_DIR$/src/util/AuthContext.js" />
       </list>
     </option>
   </component>
@@ -364,12 +364,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530557634823</updated>
       <workItem from="1530557638143" duration="10335000" />
-      <workItem from="1530784452156" duration="72642000" />
+      <workItem from="1530784452156" duration="73111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84587000" />
+    <option name="totallyTimeSpent" value="85056000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -845,8 +845,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/util/AuthContext.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="48" lean-forward="false" selection-start-line="59" selection-start-column="48" selection-end-line="59" selection-end-column="48" />
+        <state relative-caret-position="169">
+          <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
