@@ -19,6 +19,9 @@ class AuthProvider extends React.Component {
         this.logoutAuth = this.logoutAuth.bind(this)
         this.getUserData = this.getUserData.bind(this)
     }
+    componentDidMount() {
+        this.getUserData();
+    }
     async loginAuth(user,isAuth,isAdmin) {
         this.setState({
             isAuth: isAuth,
@@ -26,9 +29,14 @@ class AuthProvider extends React.Component {
             isAdmin:isAdmin
           });
     }
+
     async getUserData(){
         if(!localStorage.getItem('authToken')){
-            return
+            this.setState({
+                isAuth: false,
+                user:'',
+                isAdmin:false
+            })
         }
       const res = await getUserDetails();
         this.setState({
@@ -48,10 +56,10 @@ class AuthProvider extends React.Component {
         })
     }
     render() {
-        if(localStorage.getItem('authToken')&&!this.state.isAuth&&this.state.doRequest){
-            this.getUserData();
-            this.setState({doRequest:false})
-        }
+        // if(localStorage.getItem('authToken')&&!this.state.isAuth&&this.state.doRequest){
+        //     this.getUserData();
+        //     this.setState({doRequest:false})
+        // }
         return (
             <AuthContext.Provider
                 value={{

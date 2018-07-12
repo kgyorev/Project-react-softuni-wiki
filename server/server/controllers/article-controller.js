@@ -88,6 +88,41 @@ module.exports = {
         });
     },
 
+    historyDetails: (req, res) => {
+        let id = req.params.id;
+
+        Edit.findById(id).populate('article').then(edit => {
+            if (req.user) {
+                //  res.render('article/details', {article: article, isUserAuthorized: false});
+                return res.status(200).json({
+                    success: true,
+                    article: edit.article,
+                    edit:edit,
+                    isUserAuthorized: false
+                })
+            }
+            return res.status(401).json({
+                success: false,
+                article: {},
+                edit:{},
+                isUserAuthorized: false
+            })
+
+            // req.user.isInRole('Admin').then(isAdmin => {
+            //     // let isUserAuthorized = isAdmin || req.user.isAuthor(article);
+            //     let isUserAuthorized = isAdmin || req.user;
+            //
+            //     // res.render('article/details', {article: article, isUserAuthorized: isUserAuthorized});
+            //     return res.status(200).json({
+            //         success: true,
+            //         article: article,
+            //         isUserAuthorized: isUserAuthorized
+            //     })
+            //
+            // });
+        });
+    },
+
     editGet: (req, res) => {
         let id = req.params.id;
 
@@ -224,6 +259,23 @@ module.exports = {
     },
 
 
+    searchGet: (req, res) => {
+        //let searchArgs = req.body;
+        const searchStr = req.query.searchStr || '';
+       // console.log("Body=", req.body);
+    //    let searchStr =searchArgs.searchStr;
+        Article.find({title: {
+            $regex: new RegExp(searchStr, "ig")
+        }}, function (err, post) {
+            console.log(post);
+        }).then(articles => {
+            // res.render('article/all-articles', {articles: articles});
+            return res.status(200).json({
+                success: true,
+                articles: articles
+            })
+        });
+    },
     allGet: (req, res) => {
         Article.find({}, {}, {sort: {'title': 1}}, function (err, post) {
             console.log(post);

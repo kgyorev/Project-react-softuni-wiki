@@ -13,6 +13,9 @@ import EditPage from "./components/Edit/EditPage";
 import AllArticles from "./components/HomePage/AllArticles";
 import HistoryPage from "./components/Details/HistoryPage";
 import {AuthProvider} from "./util/AuthContext";
+import HistoryDetailsPage from "./components/Details/HistoryDetailsPage";
+import NavigationPage from "./components/HomePage/NavigationPage";
+import SearchArticles from "./components/HomePage/SearchArticles";
 
 class App extends Component {
     constructor(props) {
@@ -30,21 +33,7 @@ class App extends Component {
         return (
             <AuthProvider>
                 <div className="App container-fluid">
-                    <aside>
-                        <div className="center">
-                            <img className="logo" src="/img/logo.png" alt="logo"/>
-                        </div>
-                        <nav>
-                            <Link to={'/'}>Main Page</Link>
-                            <a href="article.html">Latest Article</a>
-                            <Link to={'/article/all'}>All Articles</Link>
-                            <form>
-                                <input type="text"/>
-                                <input type="submit" value="Search"/>
-                            </form>
-                            <Link to={'/article/create'}>Create New Article</Link>
-                        </nav>
-                    </aside>
+                    <NavigationPage/>
                     <div id="container">
                         <Header loggedIn={localStorage.getItem('authToken') != null} onLogout={this.onLogout}/>
                         <h1>Welcome to SoftUni Wiki!</h1>
@@ -53,9 +42,11 @@ class App extends Component {
                             <Route path="/user/register" component={RegisterPage}/>
                             <Route path="/user/login" component={LoginPage}/>
                             <PrivateRoute path="/article/all" component={AllArticles}/>
+                            <PrivateRoute path="/article/search" component={SearchArticles}/>
                             <PrivateRoute path="/article/create" component={CreatePage}/>
                             <PrivateRoute path="/article/edit/:id" component={EditPage}/>
                             <PrivateRoute path="/article/history/:id" component={HistoryPage}/>
+                            <PrivateRoute path="/edit/:id" component={HistoryDetailsPage}/>
                             <Route loggedIn={localStorage.getItem('authToken') != null} path="/article/details/:id"
                                    component={DetailsPage}/>
                         </Switch>

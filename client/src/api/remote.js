@@ -102,6 +102,24 @@ async function getDetails(id) {
     });
     return await res.json();
 }
+async function searchArticles(id) {
+    const res = await fetch(host + 'article/search?searchStr=' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
+async function getEditDetails(id) {
+    const res = await fetch(host + 'edit/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
 async function getAllArticleHistory(id) {
     const res = await fetch(host + 'article/history/' + id, {
         method: 'GET',
@@ -167,4 +185,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login,getUserDetails,createArticle,editArticle, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };
+export { register, login,getUserDetails,createArticle,editArticle,getEditDetails,searchArticles, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };

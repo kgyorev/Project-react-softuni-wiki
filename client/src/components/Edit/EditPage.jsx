@@ -117,15 +117,11 @@ class EditPage extends Component {
                         </h2>
 
                 <form onSubmit={this.onSubmitHandler}>
-                    <Input
-                        name="title"
-                        value={this.state.title}
-                        onChange={this.onChangeHandler}
-                        label="Article title"
-                    />
+                    <label>Article title</label>
+                    <h3>{this.state.title}</h3>
                     <TextArea
                         name="content"
-                        lockStatus={this.state.lock}
+                        lockStatus={this.state.lock&&!isAdmin}
                         value={this.state.content}
                         onChange={this.onChangeHandler}
                         label="Content"

@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     app.get('/article/create', controllers.article.createGet);
     app.post('/article/create', authCheck, controllers.article.createPost);
-
+    app.get('/edit/:id',authCheck, controllers.article.historyDetails);
     app.get('/article/details/:id', controllers.article.details);
 
     app.get('/article/edit/:id', controllers.article.editGet);
@@ -27,6 +27,7 @@ module.exports = (app) => {
     app.get('/article/unlock/:id',authCheck, controllers.article.unLockGet);
 
     app.get('/article/all',authCheck, controllers.article.allGet);
+    app.get('/article/search',authCheck, controllers.article.searchGet);
     app.get('/article/history/:id',authCheck, controllers.article.history);
 
 
