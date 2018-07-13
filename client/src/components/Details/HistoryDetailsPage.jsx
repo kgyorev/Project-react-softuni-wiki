@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getEditDetails } from '../../api/remote';
 import DetailsMenu from "./DetailsMenu";
 
-export default class DetailsPage extends Component {
+export default class HistoryDetailsPage extends Component {
     constructor(props) {
         super(props);
 

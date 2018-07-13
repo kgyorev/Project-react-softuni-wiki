@@ -191,6 +191,30 @@ module.exports = {
         }
     },
 
+    deleteGet: (req, res) => {
+        let id = req.params.id;
+        let articleArgs = req.body;
+        let errorMsg = '';
+        if (errorMsg) {
+            res.render('article/edit', {error: errorMsg})
+        } else {
+            Article.findById(id).then(article => {
+                if (!req.user) {
+                    res.redirect('/');
+                    return;
+                }
+                Article.update({_id: id}, {$set: {deletedStatus:true}})
+                    .then(updateStatus => {
+                        return res.status(200).json({
+                            success: true,
+                            article: article
+                        })
+                    })
+            })
+
+        }
+    },
+
     // deleteGet: (req, res) => {
     //     let id = req.params.id;
     //
@@ -264,7 +288,7 @@ module.exports = {
         const searchStr = req.query.searchStr || '';
        // console.log("Body=", req.body);
     //    let searchStr =searchArgs.searchStr;
-        Article.find({title: {
+        Article.find({deletedStatus:false,title: {
             $regex: new RegExp(searchStr, "ig")
         }}, function (err, post) {
             console.log(post);
@@ -277,7 +301,7 @@ module.exports = {
         });
     },
     allGet: (req, res) => {
-        Article.find({}, {}, {sort: {'title': 1}}, function (err, post) {
+        Article.find({deletedStatus:false}, {}, {sort: {'title': 1}}, function (err, post) {
             console.log(post);
         }).then(articles => {
             // res.render('article/all-articles', {articles: articles});

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ArticleCard({ title, id,loggedInDetails }) {
-    console.log("loggedin:"+ loggedInDetails)
+export default function DetailsMenu({ title, id,loggedInDetails }) {
     return (
         <h2>{title}
             <div className="controls">

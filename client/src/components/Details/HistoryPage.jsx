@@ -3,7 +3,7 @@ import { getAllArticleHistory} from '../../api/remote';
 
 import { Link } from 'react-router-dom';
 import ArticlesList from "../HomePage/ArticlesList";
-import ArticlesHistoryList from "../HomePage/ArticlesHistoryList";
+import ArticlesHistoryList from "./ArticlesHistoryList";
 
 
 export default class HistoryPage extends Component {

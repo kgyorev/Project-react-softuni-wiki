@@ -174,7 +174,15 @@ async function unLockArticle(articleId) {
     });
     return await res.json();
 }
-
+async function deleteArticle(articleId) {
+    const res = await fetch(host + `article/delete/${articleId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer ' + localStorage.getItem('authToken'),
+        }
+    });
+    return await res.json();
+}
 async function deleteHotel(hotelId) {
     const res = await fetch(host + `hotels/${hotelId}`, {
         method: 'DELETE',
@@ -185,4 +193,4 @@ async function deleteHotel(hotelId) {
     return await res.json();
 }
 
-export { register, login,getUserDetails,createArticle,editArticle,getEditDetails,searchArticles, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };
+export { register, login,getUserDetails,createArticle,editArticle,getEditDetails,searchArticles,deleteArticle, createHotel, getPage,lockArticle,unLockArticle, getHomePage,getAllArticlePage,getAllArticleHistory,getDetails, postReview, getReviews, deleteHotel };

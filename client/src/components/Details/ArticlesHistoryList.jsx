@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ArticleHistoryCard from "./ArticleHistoryCard";
+import timeConverter from '../../util/timeConverter'
+import dateConverter from '../../util/dateConverter'
 
 export default class ArticlesHistoryList extends Component {
     render() {
@@ -9,12 +11,13 @@ export default class ArticlesHistoryList extends Component {
                 <div className={this.props.className}>
                     <h3>{this.props.title}</h3>
                     <ul>
-                        {this.props.editLs.map(h => (
+                        {this.props.editLs.map((h,index) => (
                             <ArticleHistoryCard
                                 key={h._id}
                                 id={h._id}
+                                count ={index}
                                 title={h.title}
-                                creationDate={h.creationDate}
+                                creationDate={dateConverter(h.creationDate)}
                                 author={h.author.email}
                                 description={h.description}/>
                         ))}

@@ -21,13 +21,13 @@ module.exports = (app) => {
 
     app.get('/article/edit/:id', controllers.article.editGet);
     app.post('/article/edit/:id',authCheck, controllers.article.editPost);
-
+    app.get('/article/delete/:id',authCheck, controllers.article.deleteGet);
 
     app.get('/article/lock/:id',authCheck, controllers.article.lockGet);
     app.get('/article/unlock/:id',authCheck, controllers.article.unLockGet);
 
-    app.get('/article/all',authCheck, controllers.article.allGet);
-    app.get('/article/search',authCheck, controllers.article.searchGet);
+    app.get('/article/all', controllers.article.allGet);
+    app.get('/article/search', controllers.article.searchGet);
     app.get('/article/history/:id',authCheck, controllers.article.history);
 
 

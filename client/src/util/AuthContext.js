@@ -36,7 +36,8 @@ class AuthProvider extends React.Component {
                 isAuth: false,
                 user:'',
                 isAdmin:false
-            })
+            });
+            return
         }
       const res = await getUserDetails();
         this.setState({

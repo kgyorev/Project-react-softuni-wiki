@@ -6,11 +6,10 @@ export default class PrivateRoute extends Component {
         if (localStorage.getItem('authToken') === null) {
             return <Redirect to="/user/login" />;
         };
-
         return (
-            <Route {...this.props}>
+               <Route {...this.props}>
                 this.props.children
-            </Route>
+               </Route>
         );
     }
 }

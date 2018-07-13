@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Input from '../common/Input';
-import {editArticle, getDetails, lockArticle, unLockArticle} from '../../api/remote';
+import {editArticle, getDetails, lockArticle, unLockArticle,deleteArticle} from '../../api/remote';
 import {withRouter} from 'react-router-dom';
 import TextArea from "../common/TextArea";
 import ArticleLock from "./ArticleLock";
@@ -38,6 +38,19 @@ class EditPage extends Component {
         });
     }
 
+
+
+
+    async deleteArticle(id) {
+        try {
+            const res = await deleteArticle(id);
+            console.log(res)
+            this.props.history.push('/');
+        } catch (e) {
+        }
+
+    }
+
     async lockArticle(id) {
         try {
             const res = await lockArticle(id);
@@ -46,7 +59,6 @@ class EditPage extends Component {
         this.setState({lock: true});
         // this.getData();
     }
-
     async unLockArticle(id) {
         try {
             const res = await unLockArticle(id);
@@ -111,6 +123,7 @@ class EditPage extends Component {
                         <h2>Edit article
                             {isAdmin && <ArticleLock
                                 lockStatus={this.state.lock}
+                                deleteArticle={() => this.deleteArticle(this.state.id)}
                                 lock={() => this.lockArticle(this.state.id)}
                                 unLock={() => this.unLockArticle(this.state.id)}
                             />}
