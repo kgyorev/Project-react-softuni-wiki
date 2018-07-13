@@ -82,7 +82,6 @@ class NavigationPage extends Component {
                     <Link to={'/article/all'}>All Articles</Link>
                     <form onSubmit={this.onSubmitHandler}>
                         <input onChange={this.onChangeHandler} name="searchStr" id="searchStr" type="text"/>
-                        <Link to={'/article/search?searchStr=' + this.state.searchStr}>Search Articles</Link>
                         <input type="submit" value="Search"/>
                     </form>
                     <Link to={'/article/create'}>Create New Article</Link>

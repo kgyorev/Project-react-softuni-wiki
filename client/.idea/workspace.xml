@@ -24,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NavigationPage.jsx" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NavigationPage.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/HomePage/NavigationPage.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="84" column="35" lean-forward="false" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
+            <state relative-caret-position="170">
+              <caret line="83" column="108" lean-forward="false" selection-start-line="83" selection-start-column="108" selection-end-line="83" selection-end-column="108" />
               <folding />
             </state>
           </provider>
@@ -90,7 +90,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchArticles.jsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SearchArticles.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/HomePage/SearchArticles.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
@@ -167,8 +167,8 @@
         <option value="$PROJECT_DIR$/src/components/Edit/EditPage.jsx" />
         <option value="$PROJECT_DIR$/src/api/remote.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
-        <option value="$PROJECT_DIR$/src/components/HomePage/NavigationPage.jsx" />
         <option value="$PROJECT_DIR$/src/components/HomePage/SearchArticles.jsx" />
+        <option value="$PROJECT_DIR$/src/components/HomePage/NavigationPage.jsx" />
       </list>
     </option>
   </component>
@@ -367,12 +367,12 @@
       <option name="presentableId" value="Default" />
       <updated>1530557634823</updated>
       <workItem from="1530557638143" duration="10335000" />
-      <workItem from="1530784452156" duration="86284000" />
+      <workItem from="1530784452156" duration="86746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98229000" />
+    <option name="totallyTimeSpent" value="98691000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -833,14 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/HomePage/NavigationPage.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="84" column="35" lean-forward="false" selection-start-line="84" selection-start-column="35" selection-end-line="84" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/HomePage/SearchArticles.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -848,6 +840,14 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/HomePage/NavigationPage.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="83" column="108" lean-forward="false" selection-start-line="83" selection-start-column="108" selection-end-line="83" selection-end-column="108" />
+          <folding />
         </state>
       </provider>
     </entry>
