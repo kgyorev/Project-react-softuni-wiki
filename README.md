@@ -39,7 +39,7 @@ Display is with pagination.
  
  
  
-Display Article 
+<h2>Display Article </h2>
 Load the article from the database and display a page, containing its title and content of the most recent edit. Authenticated users see the option to edit the article.
 
  
