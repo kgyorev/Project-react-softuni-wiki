@@ -150,6 +150,11 @@ textarea {
     padding: 20px;
 }
 
+.spacer-list {
+    padding: 20px;
+    height:450px;
+}
+
 h2 a {
     float: right;
     font-size: 0.75em;

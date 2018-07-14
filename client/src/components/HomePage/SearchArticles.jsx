@@ -57,7 +57,7 @@ export default class SearchArticles extends Component {
         return (
             <div>
                 <ArticlesList page={page} articles={this.state.articles} title='Articles Found'
-                              infoMessage={this.state.infoMessage} className="spacer"/>
+                              infoMessage={this.state.infoMessage} className="spacer-list"/>
                 <div className="pagination">
                     {totalPages > 1 && <p>{'Page ' + (this.state.page || 1) + ' / ' + totalPages}</p>}
                     {page > 1 &&

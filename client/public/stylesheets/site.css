@@ -148,6 +148,10 @@ textarea {
 
 .spacer {
     padding: 20px;
+}
+
+.spacer-list {
+    padding: 20px;
     height:450px;
 }
 
