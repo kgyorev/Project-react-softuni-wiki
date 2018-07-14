@@ -10,7 +10,8 @@ Since anyone can edit any article, it’s important that edit history is stored 
 <h2>Application Deploy</h2>
 
 Server is deployed in Heroku , server address is : https://softuni-wiki-server.herokuapp.com/  <br/>
-Web app(client) is deployed in icn.bg . address is : wiki.android.bg <br/>
+Web app (client) is hosted in icn.bg . Address is: wiki.android.bg <br/>
+Database is MongoDB hosted in: https://mlab.com <br/>
 GitHub of app is in : https://github.com/kgyorev/Project-react-softuni-wiki/ <br/>
 Where in GitHub is code for server and client
 
