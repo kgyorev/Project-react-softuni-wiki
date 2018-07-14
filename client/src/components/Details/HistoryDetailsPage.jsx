@@ -24,7 +24,7 @@ export default class HistoryDetailsPage extends Component {
     }
 
     render() {
-        let main = <p>Loading &hellip;</p>;
+        let main = <h1 className="infoMessage">Loading &hellip;</h1>;
         if (this.state.article) {
             const article = this.state.article;
             const edit = this.state.edit;
@@ -37,7 +37,6 @@ export default class HistoryDetailsPage extends Component {
                 </div>
             );
         }
-
         return (
             <div className="container">
                 {main}

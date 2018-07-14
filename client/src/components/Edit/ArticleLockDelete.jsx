@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-export default function ArticleLock({lockStatus, lock, unLock, deleteArticle}) {
+export default function ArticleLockDelete({lockStatus, lock, unLock, deleteArticle}) {
     return (
         <div className="controls">
             {<a href="javascript:void(0)" onClick={(e) => {

@@ -12,8 +12,8 @@ export default class HistoryPage extends Component {
 
         this.state = {
             success: false,
-            editLs: [],
-            article:{}
+            editLs: false,
+            article:false
         };
     }
 
@@ -21,26 +21,27 @@ export default class HistoryPage extends Component {
         this.getData();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.match.params.page !== this.props.match.params.page) {
-            console.log('here');
-            this.getData(Number(nextProps.match.params.page));
-        }
-    }
-
     async getData() {
         const data = await getAllArticleHistory(this.props.match.params.id);
-        console.log(data)
         this.setState(data);
     }
 
 
     render() {
 
+        let main = <h1 className="infoMessage">Loading &hellip;</h1>;
+        if (this.state.article&&this.state.editLs) {
+            main = (
+                <div>
+                    <ArticlesHistoryList editLs={this.state.editLs} article ={this.state.article} title = 'Edit hostory' className="spacer"/>
+                </div>
+            );
+        }
         return (
-            <div>
-                <ArticlesHistoryList editLs={this.state.editLs} article ={this.state.article} title = 'Edit hostory' className="spacer"/>
+            <div className="container">
+                {main}
             </div>
         );
+
     }
 }

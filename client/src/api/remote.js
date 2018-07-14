@@ -78,8 +78,8 @@ async function getHomePage() {
     return await res.json();
 }
 
-async function getAllArticlePage() {
-    const res = await fetch(host+'article/all',{
+async function getAllArticlePage(page) {
+    const res = await fetch(host+'article/all?page='+ page,{
         headers: {
             'Authorization': 'bearer ' + localStorage.getItem('authToken'),
             'Content-Type': 'application/json'
@@ -102,8 +102,8 @@ async function getDetails(id) {
     });
     return await res.json();
 }
-async function searchArticles(id) {
-    const res = await fetch(host + 'article/search?searchStr=' + id, {
+async function searchArticles(searchStr,page) {
+    const res = await fetch(host + 'article/search?searchStr=' + searchStr+'&'+'page='+page, {
         method: 'GET',
         headers: {
             'Authorization': 'bearer ' + localStorage.getItem('authToken'),

@@ -11,7 +11,7 @@ export default class HomePage extends Component {
         this.state = {
             success: false,
             articles: [],
-            article:{},
+            article:false,
             displayContent: ''
         };
     }
@@ -39,7 +39,7 @@ export default class HomePage extends Component {
         return (
             <div>
                 <LastArticle article={this.state.article} displayContent ={this.state.displayContent} />
-                <ArticlesList articles={this.state.articles} title = 'Recently added articles' id = 'recent'/>
+                <ArticlesList articles={this.state.articles} homePage={true} title = 'Recently added articles' id = 'recent'/>
             </div>
         );
     }

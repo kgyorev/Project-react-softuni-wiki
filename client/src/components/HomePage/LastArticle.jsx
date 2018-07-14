@@ -10,7 +10,7 @@ export default function LastArticle({ article ,displayContent}) {
                 <p>
                     {displayContent}
                 </p>
-                {article!==null && <div className="controls">
+                {article && <div className="controls">
                     <Link to={'/article/details/' + article._id}>Read more</Link>
                 </div>}
             </article>

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { getAllArticlePage} from '../../api/remote';
+import React, {Component} from 'react';
+import {getAllArticlePage} from '../../api/remote';
 import ArticlesList from './ArticlesList';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import LastArticle from "./LastArticle";
 
 export default class AllArticles extends Component {
@@ -10,6 +10,9 @@ export default class AllArticles extends Component {
 
         this.state = {
             success: false,
+            totalCount:0,
+            page:1,
+            infoMessage:'Loading ...',
             articles: [],
         };
     }
@@ -20,24 +23,38 @@ export default class AllArticles extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.match.params.page !== this.props.match.params.page) {
-            console.log('here');
             this.getData(Number(nextProps.match.params.page));
         }
     }
 
-    async getData() {
-        const data = await getAllArticlePage();
-        console.log(data)
+    async getData(page = Number(this.props.match.params.page) || 1) {
+        const data = await getAllArticlePage(page);
+        if(!data.articles||data.articles.length===0){
+            data.infoMessage='No Articles Found'
+        }
+        data.page=page;
         this.setState(data);
     }
 
 
     render() {
-
+        const page = Number(this.state.page) || 1;
+        let totalCount = this.state.totalCount;
+        let next =false;
+        let totalPages = Math.ceil(totalCount/10.0);
+        console.log('TotalCount=',totalCount)
+        if(totalPages>page){
+            next=true
+        }
         return (
             <div>
-                <ArticlesList articles={this.state.articles} title = 'All articles' className="spacer"/>
+                <ArticlesList page={page} articles={this.state.articles} infoMessage={this.state.infoMessage} title='All articles' className="spacer"/>
+                <div className="pagination">
+                    {page > 1 && <Link to={'/article/all/' + (page - 1)}>&lt;</Link>}
+                    {next&&<Link to={'/article/all/' + (page + 1)}>&gt;</Link>}
+                </div>
             </div>
         );
+
     }
 }

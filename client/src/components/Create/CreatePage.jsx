@@ -12,13 +12,21 @@ class CreatePage extends Component {
             title: '',
             content: '',
             error: false,
+            selectedFile: null,
             submitting: false
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
     }
-
+    fileChangedHandler = (event) => {
+        this.setState({selectedFile: event.target.files[0]})
+    };
+    uploadHandler = (e) => {
+        e.preventDefault();
+        console.log(this.state.selectedFile)
+        fetch('my-domain.com/file-upload', this.state.selectedFile)
+    };
     onChangeHandler(e) {
         this.setState({ [e.target.name]: e.target.value });
     }

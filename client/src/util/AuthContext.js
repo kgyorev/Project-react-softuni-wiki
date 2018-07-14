@@ -22,6 +22,12 @@ class AuthProvider extends React.Component {
     componentDidMount() {
         this.getUserData();
     }
+    componentWillMount() {
+        this.getUserData();
+    }
+    componentWillReceiveProps() {
+        this.getUserData();
+    }
     async loginAuth(user,isAuth,isAdmin) {
         this.setState({
             isAuth: isAuth,

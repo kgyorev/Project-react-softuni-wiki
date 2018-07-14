@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import Input from '../common/Input';
 import {editArticle, getDetails, lockArticle, unLockArticle,deleteArticle} from '../../api/remote';
 import {withRouter} from 'react-router-dom';
 import TextArea from "../common/TextArea";
-import ArticleLock from "./ArticleLock";
+import ArticleLockDelete from "./ArticleLockDelete";
 import {AuthConsumer} from "../../util/AuthContext";
 
 class EditPage extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             title: '',
             content: '',
@@ -29,7 +27,6 @@ class EditPage extends Component {
 
     async getData() {
         const data = await getDetails(this.props.match.params.id);
-        console.log(data)
         this.setState({
             title: data.article.title,
             content: data.article.lastEdit.content,
@@ -44,7 +41,6 @@ class EditPage extends Component {
     async deleteArticle(id) {
         try {
             const res = await deleteArticle(id);
-            console.log(res)
             this.props.history.push('/');
         } catch (e) {
         }
@@ -57,7 +53,6 @@ class EditPage extends Component {
         } catch (e) {
         }
         this.setState({lock: true});
-        // this.getData();
     }
     async unLockArticle(id) {
         try {
@@ -65,7 +60,6 @@ class EditPage extends Component {
         } catch (e) {
         }
         this.setState({lock: false});
-        // this.getData();
     }
 
     onChangeHandler(e) {
@@ -121,7 +115,7 @@ class EditPage extends Component {
             <section>
                 {errors}
                         <h2>Edit article
-                            {isAdmin && <ArticleLock
+                            {isAdmin && <ArticleLockDelete
                                 lockStatus={this.state.lock}
                                 deleteArticle={() => this.deleteArticle(this.state.id)}
                                 lock={() => this.lockArticle(this.state.id)}

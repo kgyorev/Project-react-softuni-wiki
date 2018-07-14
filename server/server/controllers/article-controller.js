@@ -65,7 +65,7 @@ module.exports = {
 
         Article.findById(id).populate('lastEdit').then(article => {
             if (!req.user) {
-              //  res.render('article/details', {article: article, isUserAuthorized: false});
+                //  res.render('article/details', {article: article, isUserAuthorized: false});
                 return res.status(200).json({
                     success: true,
                     article: article,
@@ -77,7 +77,7 @@ module.exports = {
                 // let isUserAuthorized = isAdmin || req.user.isAuthor(article);
                 let isUserAuthorized = isAdmin || req.user;
 
-               // res.render('article/details', {article: article, isUserAuthorized: isUserAuthorized});
+                // res.render('article/details', {article: article, isUserAuthorized: isUserAuthorized});
                 return res.status(200).json({
                     success: true,
                     article: article,
@@ -97,14 +97,14 @@ module.exports = {
                 return res.status(200).json({
                     success: true,
                     article: edit.article,
-                    edit:edit,
+                    edit: edit,
                     isUserAuthorized: false
                 })
             }
             return res.status(401).json({
                 success: false,
                 article: {},
-                edit:{},
+                edit: {},
                 isUserAuthorized: false
             })
 
@@ -203,7 +203,7 @@ module.exports = {
                     res.redirect('/');
                     return;
                 }
-                Article.update({_id: id}, {$set: {deletedStatus:true}})
+                Article.update({_id: id}, {$set: {deletedStatus: true}})
                     .then(updateStatus => {
                         return res.status(200).json({
                             success: true,
@@ -283,33 +283,89 @@ module.exports = {
     },
 
 
+    // searchGet: (req, res) => {
+    //     //let searchArgs = req.body;
+    //     const searchStr = req.query.searchStr || '';
+    //     // console.log("Body=", req.body);
+    //     //    let searchStr =searchArgs.searchStr;
+    //     Article.find({
+    //         deletedStatus: false, title: {
+    //             $regex: new RegExp(searchStr, "ig")
+    //         }
+    //     }, function (err, post) {
+    //         console.log(post);
+    //     }).then(articles => {
+    //         // res.render('article/all-articles', {articles: articles});
+    //         return res.status(200).json({
+    //             success: true,
+    //             articles: articles
+    //         })
+    //     });
+    // },
+
     searchGet: (req, res) => {
         //let searchArgs = req.body;
         const searchStr = req.query.searchStr || '';
-       // console.log("Body=", req.body);
-    //    let searchStr =searchArgs.searchStr;
-        Article.find({deletedStatus:false,title: {
-            $regex: new RegExp(searchStr, "ig")
-        }}, function (err, post) {
+        const pageSize = 10
+        const page = parseInt(req.query.page) || 1;
+
+
+        let totalCount = 0;
+        Article.find({
+            deletedStatus: false, title: {
+                $regex: new RegExp(searchStr, "ig")
+            }
+        }, {}, {sort: {'title': 1}}, function (err, post) {
             console.log(post);
-        }).then(articles => {
-            // res.render('article/all-articles', {articles: articles});
-            return res.status(200).json({
-                success: true,
-                articles: articles
-            })
-        });
+            // totalCount = post.length
+        })
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .exec(function (err, articles) {
+                Article.find({deletedStatus: false,title: {
+                    $regex: new RegExp(searchStr, "ig")
+                }}, (function (err, totalCount) {
+                    // .then(articles => {
+                    // res.render('article/all-articles', {articles: articles});
+                    let totalArticles = totalCount.length
+                    return res.status(200).json({
+                        success: true,
+                        totalCount: totalArticles,
+                        articles: articles
+                    })
+                    // }
+                    // )
+                }))
+            });
     },
+
     allGet: (req, res) => {
-        Article.find({deletedStatus:false}, {}, {sort: {'title': 1}}, function (err, post) {
+        const pageSize = 10
+        const page = parseInt(req.query.page) || 0
+        let startIndex = (page - 1) * pageSize
+        let endIndex = startIndex + pageSize
+        let totalCount = 0;
+
+        Article.find({deletedStatus: false}, {}, {sort: {'title': 1}}, function (err, post) {
             console.log(post);
-        }).then(articles => {
-            // res.render('article/all-articles', {articles: articles});
-            return res.status(200).json({
-                success: true,
-                articles: articles
-            })
-        });
+            // totalCount = post.length
+        })
+            .limit(pageSize)
+            .skip(pageSize * (page - 1))
+            .exec(function (err, articles) {
+                Article.find({deletedStatus: false}, (function (err, totalCount) {
+                    // .then(articles => {
+                    // res.render('article/all-articles', {articles: articles});
+                    let totalArticles = totalCount.length
+                    return res.status(200).json({
+                        success: true,
+                        totalCount: totalArticles,
+                        articles: articles
+                    })
+                    // }
+                    // )
+                }))
+            });
     },
     history: (req, res) => {
         let id = req.params.id;
@@ -325,12 +381,12 @@ module.exports = {
         Article.findById(id).then(article => {
             let editLs = article.editLs
             Edit.find({'_id': {$in: editLs}}).populate('author').then(editHistory => {
-                return res.status(200).json({
-                    success: true,
-                    editLs:editHistory,
-                    article: article
-                })
-                 //   res.render('article/history', {article: article, editLs: editHistory})
+                    return res.status(200).json({
+                        success: true,
+                        editLs: editHistory,
+                        article: article
+                    })
+                    //   res.render('article/history', {article: article, editLs: editHistory})
                 }
             )
         })

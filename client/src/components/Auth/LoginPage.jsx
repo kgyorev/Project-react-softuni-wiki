@@ -31,32 +31,14 @@ class LoginPage extends Component {
         }
         loginAuth(this.state.email,res.isAuth,res.isUserAuthorized);
         localStorage.setItem('authToken', res.token);
-      //  console.log(res)
-      //  localStorage.setItem('user', res.user);
-       // localStorage.setItem('isUserAuthorized', res.isUserAuthorized);
         this.props.history.push('/');
     }
-
-// <section>
-// <h2>Login</h2>
-// <div class="spacer">
-// <form method="post" action="/user/login">
-// <label>Email:</label>
-// <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email">
-// <label>Password:</label>
-// <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
-// <input type="submit" value="Login">
-// </form>
-// </div>
-// </section>
-
-
     render() {
         return (
             <AuthConsumer>
                 {({loginAuth, logoutAuth}) => (
                     <section>
-                        {this.state.error}
+                        {this.state.error&&<h2 className="errorMessage">{this.state.error}</h2>}
                         <h2>Login</h2>
                         <form onSubmit={e => {
                             this.onSubmitHandler(e,loginAuth);

@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Redirect, Route} from 'react-router-dom';
+import {AuthConsumer} from "../../util/AuthContext";
 
 export default class PrivateRoute extends Component {
     render() {
         if (localStorage.getItem('authToken') === null) {
-            return <Redirect to="/user/login" />;
-        };
+            return <Redirect to="/user/login"/>;
+        }
+        ;
         return (
-               <Route {...this.props}>
+            <Route {...this.props}>
                 this.props.children
-               </Route>
+            </Route>
         );
     }
 }
