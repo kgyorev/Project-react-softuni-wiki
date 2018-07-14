@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Input from '../common/Input';
 import {register} from '../../api/remote';
 import {withRouter} from 'react-router-dom';
 
@@ -41,7 +40,7 @@ class RegisterPage extends Component {
             this.setState({error: res});
             return;
         }
-        this.props.history.push('/login');
+        this.props.history.push('/user/login');
     }
 
     render() {

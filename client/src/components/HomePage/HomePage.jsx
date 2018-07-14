@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { getHomePage, deleteHotel } from '../../api/remote';
 import ArticlesList from './ArticlesList';
-import { Link } from 'react-router-dom';
 import LastArticle from "./LastArticle";
 
 export default class HomePage extends Component {

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {getHomePage, deleteHotel} from '../../api/remote';
-import ArticlesList from './ArticlesList';
 import {Link, withRouter} from 'react-router-dom';
-import LastArticle from "./LastArticle";
 import * as qs from 'query-string';
 
 class NavigationPage extends Component {

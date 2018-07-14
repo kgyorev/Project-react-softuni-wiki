@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {getAllArticlePage} from '../../api/remote';
 import ArticlesList from './ArticlesList';
 import {Link} from 'react-router-dom';
-import LastArticle from "./LastArticle";
 
 export default class AllArticles extends Component {
     constructor(props) {

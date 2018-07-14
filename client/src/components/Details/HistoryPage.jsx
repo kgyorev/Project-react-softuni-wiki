@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { getAllArticleHistory} from '../../api/remote';
 
-import { Link } from 'react-router-dom';
-import ArticlesList from "../HomePage/ArticlesList";
 import ArticlesHistoryList from "./ArticlesHistoryList";
 
 

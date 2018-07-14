@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ArticleCard from './ArticleCard';
-import {Link} from "react-router-dom";
 
 export default class ArticlesList extends Component {
     render() {

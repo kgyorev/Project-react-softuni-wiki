@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
-import {AuthConsumer} from "../../util/AuthContext";
 
 class NoMatch extends Component {
     render() {

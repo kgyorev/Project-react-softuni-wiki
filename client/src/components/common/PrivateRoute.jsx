@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Redirect, Route} from 'react-router-dom';
-import {AuthConsumer} from "../../util/AuthContext";
 
 export default class PrivateRoute extends Component {
     render() {

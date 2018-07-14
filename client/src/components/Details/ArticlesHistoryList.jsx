@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ArticleHistoryCard from "./ArticleHistoryCard";
-import timeConverter from '../../util/timeConverter'
 import dateConverter from '../../util/dateConverter'
 
 export default class ArticlesHistoryList extends Component {
