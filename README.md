@@ -33,7 +33,7 @@ An article must have a title, a locked status and a list of edits. Each edit has
  
  
  
-<h2>List All Articles 
+<h2>List All Articles </h2>
 Show a list of all articles, ordered alphabetically, with a links to display their contents.
 Display is with pagination.
  
