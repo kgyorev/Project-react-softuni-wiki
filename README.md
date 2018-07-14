@@ -9,14 +9,15 @@ Since anyone can edit any article, it’s important that edit history is stored 
 
 <h2>Application Deploy</h2>
 
-Server is deployed in Heroku , server address is : https://softuni-wiki-server.herokuapp.com/
-Web app(client) is deployed in icn.bg . address is : wiki.android.bg
-GitHub of app is in : https://github.com/kgyorev/Project-react-softuni-wiki/
+Server is deployed in Heroku , server address is : https://softuni-wiki-server.herokuapp.com/  <br/>
+Web app(client) is deployed in icn.bg . address is : wiki.android.bg <br/>
+GitHub of app is in : https://github.com/kgyorev/Project-react-softuni-wiki/ <br/>
 Where in GitHub is code for server and client
 
-<h2>NOTE: if you want to run server in local host you need to change remote.js file</h2>
-const host = 'http://localhost:1337/'; // for local Host
-const host = 'https://softuni-wiki-server.herokuapp.com:443/'; // For Heroku server
+<h2>NOTE: if you want to run server in local host you need to change remote.js file</h2> 
+const host = 'http://localhost:1337/'; // for local Host 
+<br/>
+const host = 'https://softuni-wiki-server.herokuapp.com:443/'; // For Heroku server 
 
 
 
