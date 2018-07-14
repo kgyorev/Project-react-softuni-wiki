@@ -50,6 +50,7 @@ export default class AllArticles extends Component {
             <div>
                 <ArticlesList page={page} articles={this.state.articles} infoMessage={this.state.infoMessage} title='All articles' className="spacer"/>
                 <div className="pagination">
+                    {totalPages>1&&<p>{'Page '+(this.state.page||1)+' / '+totalPages}</p>}
                     {page > 1 && <Link to={'/article/all/' + (page - 1)}>&lt;</Link>}
                     {next&&<Link to={'/article/all/' + (page + 1)}>&gt;</Link>}
                 </div>

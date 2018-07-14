@@ -27,7 +27,7 @@ export default class SearchArticles extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-         const parsedNew = qs.parse(nextProps.location.search);
+        const parsedNew = qs.parse(nextProps.location.search);
         this.setState({searchStr:parsedNew.searchStr,page:parsedNew.page})
         this.getData(parsedNew.searchStr,parsedNew.page);
     }
@@ -55,6 +55,7 @@ export default class SearchArticles extends Component {
             <div>
                 <ArticlesList page={page} articles={this.state.articles} title='Articles Found' infoMessage={this.state.infoMessage}  className="spacer"/>
                 <div className="pagination">
+                    {totalPages>1&&<p>{'Page '+(this.state.page||1)+' / '+totalPages}</p>}
                     {page > 1 && <Link to={'/article/search?searchStr=' + this.state.searchStr +'&page='+ (page - 1)}>&lt;</Link>}
                     {next&&<Link to={'/article/search?searchStr=' + this.state.searchStr+'&page=' + (page + 1)}>&gt;</Link>}
                 </div>
