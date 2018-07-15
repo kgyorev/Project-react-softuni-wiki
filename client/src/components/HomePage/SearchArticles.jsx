@@ -28,9 +28,12 @@ export default class SearchArticles extends Component {
     componentWillReceiveProps(nextProps) {
         const parsedNew = qs.parse(nextProps.location.search);
         const parsedOld = qs.parse(this.props.location.search);
-         if (parsedNew.page !== parsedOld.page||parsedNew.searchStr !== parsedOld.searchStr) {
+         if ((parsedNew.page||1)!== (parsedOld.page||1)||parsedNew.searchStr !== parsedOld.searchStr) {
             this.getData(parsedNew.searchStr, parsedNew.page);
         }
+        else if((parsedNew.page===undefined)){
+             this.getData(parsedNew.searchStr, 1);
+         }
 
     }
 
@@ -42,6 +45,7 @@ export default class SearchArticles extends Component {
             data.infoMessage = 'No Articles Found'
         }
         data.page=page;
+        data.searchStr=searchStr;
         this.setState(data);
     }
 
